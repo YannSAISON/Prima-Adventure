@@ -8,9 +8,18 @@ using UnityEngine.Diagnostics;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class PlayerMovements : MonoBehaviour
 {
+    public enum State
+    {
+        Grounded,
+        Ascending,
+        Falling,
+    }
+    
     public float horizontalSpeed = 5;
+    public float jumpForce = 5;
     public float dashSpeed = 18;
     public float maxDashRange;
     public float minDashRange;
@@ -24,6 +33,10 @@ public class PlayerMovements : MonoBehaviour
     private float _dashDuration;
     private float _dashSumDeltaT;
 
+    private State _state;
+    public float jumpDelay = 0.1f;
+    private float _jumpDeltaTime;
+    
     private Rigidbody2D _body;
 
     // Start is called before the first frame update
@@ -45,6 +58,7 @@ public class PlayerMovements : MonoBehaviour
         }
         else if (!isDashing)
         {
+            _updateState();
             _defineBasicMovement();
             _applyBasicSpeed(Time.deltaTime);
         }
@@ -54,6 +68,29 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
+    private void _updateState()
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(_body.position, Vector2.down, 0.45f);
+        Debug.DrawRay(_body.position, Vector2.down * 0.45f, Color.red);
+
+        Debug.Log("State: " + _state);
+        if (hits.Length > 0)
+        {
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.transform.gameObject.tag == "Ground")
+                {
+                    _state = State.Grounded;
+                    return;
+                }
+            }
+        }
+        if (_body.velocity.y > 0)
+            _state = State.Ascending;
+        else if (_body.velocity.y < 0)
+            _state = State.Falling;
+    }
+    
     private void _startDash()
     {
         isDashing = true;
@@ -120,6 +157,14 @@ public class PlayerMovements : MonoBehaviour
     {
         _movement.x = Input.GetAxisRaw("Horizontal");
         _speed.x = horizontalSpeed;
+        _jumpDeltaTime += Time.deltaTime;
+
+        if (_state == State.Grounded && _jumpDeltaTime > jumpDelay && Input.GetAxisRaw("Vertical") > 0)
+        {
+            Debug.Log("Jumping.");
+            _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _jumpDeltaTime = 0;
+        }
         //TODO Jump
     }
 
