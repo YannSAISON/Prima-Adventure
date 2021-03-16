@@ -27,17 +27,22 @@ namespace Mechanics
         private Collider2D _collider;
 
         private Transform _player;
+
+        private PlayerStateManager _playerState;
+        private int _damages;
         
         // Start is called before the first frame update
         void Start()
         {
             gameObject.GetComponentInParent<EnemyAreaController>()
-                .Init(out _originalPosition, out _destination, out _speed, out _chasingSpeed);
+                .Init(out _originalPosition, out _destination, out _speed, out _chasingSpeed, out _damages);
             _toDest = true;
             _state = EnemyState.Hiking;
-            _player = GameObject.Find("Player").GetComponent<Transform>();
+            GameObject player = GameObject.Find("_Player");
+            _player = player.GetComponent<Transform>();
             if (_player == null)
                 throw new Exception("Player not found.");
+            _playerState = player.GetComponent<PlayerStateManager>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -45,7 +50,7 @@ namespace Mechanics
             var player = other.gameObject.GetComponent<PlayerController>();
             if (player != null)
             {
-                //TODO Trigger player hit.
+                _playerState.Hit(_damages);
             }
         }
 
@@ -62,8 +67,6 @@ namespace Mechanics
         // Update is called once per frame
         void Update()
         {
-            Debug.Log("Player position: " + _player.position.x);
-            Debug.Log("Enemy position: " + this.transform.position.x);
             Debug.DrawLine(_originalPosition, _destination, Color.green);
             if (_state == EnemyState.Hiking)
             {
