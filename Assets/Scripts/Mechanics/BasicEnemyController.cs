@@ -25,6 +25,8 @@ namespace Mechanics
         private EnemyState _state;
 
         private Collider2D _collider;
+
+        private Transform _player;
         
         // Start is called before the first frame update
         void Start()
@@ -33,6 +35,9 @@ namespace Mechanics
                 .Init(out _originalPosition, out _destination, out _speed, out _chasingSpeed);
             _toDest = true;
             _state = EnemyState.Hiking;
+            _player = GameObject.Find("Player").GetComponent<Transform>();
+            if (_player == null)
+                throw new Exception("Player not found.");
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -57,6 +62,8 @@ namespace Mechanics
         // Update is called once per frame
         void Update()
         {
+            Debug.Log("Player position: " + _player.position.x);
+            Debug.Log("Enemy position: " + this.transform.position.x);
             Debug.DrawLine(_originalPosition, _destination, Color.green);
             if (_state == EnemyState.Hiking)
             {
@@ -85,7 +92,24 @@ namespace Mechanics
 
         private void _handleHuntingState()
         {
-            //TODO Handle hunting state.
+            if (_player.position.x - this.transform.position.x > 0)
+            {
+                Vector3 position = transform.position;
+                Vector2 diff = _destination - (Vector2)position;
+                if (diff.magnitude < .5)
+                    return;
+                this.transform.position = Vector2.MoveTowards(position,
+                    _destination, Time.deltaTime * _chasingSpeed);
+            }
+            else
+            {
+                Vector3 position = transform.position;
+                Vector2 diff = _originalPosition - (Vector2)position;
+                if (diff.magnitude < .5)
+                    return;
+                this.transform.position = Vector2.MoveTowards(this.transform.position,
+                    _originalPosition, Time.deltaTime * _chasingSpeed);
+            }
         }
         
         private void _isCloseEnough(Vector2 dest)
