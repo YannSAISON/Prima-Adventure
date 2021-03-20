@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Mechanics;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class EnemyAreaController : MonoBehaviour
     private EnemyArea _enemyArea;
     
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _enemyController = this.GetComponentInChildren<BasicEnemyController>();
         _enemyArea = this.GetComponentInChildren<EnemyArea>();

@@ -16,7 +16,9 @@ namespace Mechanics
             Hiking,
             Hunting,
         }
-        
+
+        public int health;
+
         private float _speed;
         private float _chasingSpeed;
         private Vector2 _originalPosition;
@@ -47,11 +49,35 @@ namespace Mechanics
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var player = other.gameObject.GetComponent<PlayerController>();
-            if (player != null)
+            PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
+            PlayerStateManager playerStateManager = other.gameObject.GetComponent<PlayerStateManager>();
+            if (playerMovement != null)
             {
-                _playerState.Hit(_damages);
+                if (playerMovement.isDashing)
+                    Hit(playerStateManager.damages);
+                else
+                    _playerState.Hit(_damages);
             }
+        }
+
+        public void Hit(int damages)
+        {
+            health -= damages;
+            if (health <= 0)
+            {
+                health = 0;
+                _destroy();
+            }
+        }
+
+        private void _destroy()
+        {
+            //TODO Hide object
+            gameObject.GetComponent<Renderer>().enabled = false;
+            //TODO Trigger particles
+            //TODO Trigger sound
+            //TODO Wiggle camera
+            //TODO Wait to destroy object
         }
 
         public void OnPlayerEnterArea()

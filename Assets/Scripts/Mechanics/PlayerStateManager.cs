@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerStateManager : MonoBehaviour
 {
     public int health = 100;
+    public int damages = 50;
     // Start is called before the first frame update
     void Start()
     {
