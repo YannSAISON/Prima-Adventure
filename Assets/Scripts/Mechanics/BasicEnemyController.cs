@@ -32,6 +32,8 @@ namespace Mechanics
 
         private PlayerStateManager _playerState;
         private int _damages;
+
+        private SmoothCamera _camera;
         
         // Start is called before the first frame update
         void Start()
@@ -45,6 +47,7 @@ namespace Mechanics
             if (_player == null)
                 throw new Exception("Player not found.");
             _playerState = player.GetComponent<PlayerStateManager>();
+            _camera = GameObject.FindObjectOfType<SmoothCamera>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -77,6 +80,7 @@ namespace Mechanics
             //TODO Trigger particles
             //TODO Trigger sound
             //TODO Wiggle camera
+            _camera.WiggleCamera(SmoothCamera.WiggleForce.Low);
             //TODO Wait to destroy object
         }
 
