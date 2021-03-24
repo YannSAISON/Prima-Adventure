@@ -599,6 +599,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5569568478197025036, guid: a77335851bf2d554ea4efdfbf8259171,
+        type: 3}
+      propertyPath: dashCost
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5569568479543143660, guid: a77335851bf2d554ea4efdfbf8259171,
         type: 3}
       propertyPath: m_Enabled

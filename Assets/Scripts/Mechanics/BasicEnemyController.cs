@@ -18,6 +18,7 @@ namespace Mechanics
         }
 
         public int health;
+        public int swagBack = 20;
 
         private float _speed;
         private float _chasingSpeed;
@@ -75,6 +76,7 @@ namespace Mechanics
 
         private void _destroy()
         {
+            _playerState.Killed(swagBack);
             //TODO Hide object
             gameObject.GetComponent<Renderer>().enabled = false;
             //TODO Trigger particles

@@ -52,11 +52,11 @@ public class PlayerMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDashing && Input.GetButtonDown("Fire1")/* && player.haveEnoughEnergyToDash()*/) //TODO Change it depending on player resources
-        {
-            _startDash();
-        }
-        else if (!isDashing)
+        // if (!isDashing && Input.GetButtonDown("Fire1")/* && player.haveEnoughEnergyToDash()*/) //TODO Change it depending on player resources
+        // {
+        //     _startDash();
+        // }
+        if (!isDashing)
         {
             _updateState();
             _defineBasicMovement();
@@ -68,6 +68,13 @@ public class PlayerMovements : MonoBehaviour
         }
     }
 
+    public void StartDash()
+    {
+        if (isDashing)
+            return;
+        _startDash();
+    }
+    
     private void _updateState()
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(_body.position, Vector2.down, 0.45f);
