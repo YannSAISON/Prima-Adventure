@@ -36,8 +36,10 @@ public class PlayerMovements : MonoBehaviour
     private State _state;
     public float jumpDelay = 0.1f;
     private float _jumpDeltaTime;
-    
+    SpriteRenderer spriteRenderer;
+
     private Rigidbody2D _body;
+    internal Animator animator;
     private Transform _spawnPoint;
 
     // Start is called before the first frame update
@@ -50,6 +52,8 @@ public class PlayerMovements : MonoBehaviour
         _dashDestination = Vector2.zero;
         _spawnPoint = GameObject.FindWithTag("PlayerSpawnPoint").GetComponent<Transform>();
         _body.position = _spawnPoint.position;
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -80,6 +84,10 @@ public class PlayerMovements : MonoBehaviour
         Debug.DrawRay(_body.position, Vector2.down * 1.30f, Color.red);
 
         Debug.Log("State: " + _state);
+        if (_body.velocity.x > 0.01f)
+            spriteRenderer.flipX = false;
+        else if (_body.velocity.x < -0.01f)
+            spriteRenderer.flipX = true;
         if (hits.Length > 0)
         {
             foreach (RaycastHit2D hit in hits)
@@ -87,6 +95,8 @@ public class PlayerMovements : MonoBehaviour
                 if (hit.transform.gameObject.tag == "Ground")
                 {
                     _state = State.Grounded;
+                    //Debug.Log("Velocity X = " + Mathf.Abs(_body.velocity.x) / horizontalSpeed);
+                    animator.SetFloat("velocityX", Mathf.Abs(_body.velocity.x) / horizontalSpeed);
                     return;
                 }
             }
@@ -95,6 +105,8 @@ public class PlayerMovements : MonoBehaviour
             _state = State.Ascending;
         else if (_body.velocity.y < 0)
             _state = State.Falling;
+        //Debug.Log("Velocity X = " + Mathf.Abs(_body.velocity.x) / horizontalSpeed);
+        animator.SetFloat("velocityX", Mathf.Abs(_body.velocity.x) / horizontalSpeed);
     }
     
     private void _startDash()
