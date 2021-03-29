@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerStateManager : MonoBehaviour
 {
     public int health = 100;
+    private int _currentHealth;
     public int damages = 50;
     
     public int swagMax = 100;
@@ -25,12 +26,14 @@ public class PlayerStateManager : MonoBehaviour
         _camera = GameObject.FindObjectOfType<SmoothCamera>();
         _playerMovements = gameObject.GetComponent<PlayerMovements>();
         _swag = swagMax;
+        _currentHealth = health;
+        //TODO Reset enemies.
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_playerMovements.isDashing && Input.GetButtonDown("Fire1") && _swag >= dashCost/* && player.haveEnoughEnergyToDash()*/) //TODO Change it depending on player resources
+        if (!_playerMovements.isDashing && Input.GetButtonDown("Fire1") && _swag >= dashCost)
         {
             _playerMovements.StartDash();
             _swag -= dashCost;
@@ -43,7 +46,6 @@ public class PlayerStateManager : MonoBehaviour
                 _swag++;
             _swagDeltaT = 1 / swagPerSec;
         }
-        Debug.Log($"Swag: {_swag}");
     }
 
     public void Killed(int swagBack)
@@ -54,11 +56,13 @@ public class PlayerStateManager : MonoBehaviour
     
     public void Hit(int damages)
     {
-        health -= damages;
-        if (health < 0)
+        _currentHealth -= damages;
+        if (_currentHealth < 0)
         {
             _camera.WiggleCamera(SmoothCamera.WiggleForce.High);
-            Debug.Log("Dead.");
+            _playerMovements.MoveToSpawn();
+            _currentHealth = health;
+            //TODO Reset enemies.
         }
     }
 }

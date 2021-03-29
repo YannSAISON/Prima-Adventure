@@ -38,6 +38,7 @@ public class PlayerMovements : MonoBehaviour
     private float _jumpDeltaTime;
     
     private Rigidbody2D _body;
+    private Transform _spawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -47,15 +48,13 @@ public class PlayerMovements : MonoBehaviour
         _movement = Vector2.zero;
         _body = GetComponent<Rigidbody2D>();
         _dashDestination = Vector2.zero;
+        _spawnPoint = GameObject.FindWithTag("PlayerSpawnPoint").GetComponent<Transform>();
+        _body.position = _spawnPoint.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (!isDashing && Input.GetButtonDown("Fire1")/* && player.haveEnoughEnergyToDash()*/) //TODO Change it depending on player resources
-        // {
-        //     _startDash();
-        // }
         if (!isDashing)
         {
             _updateState();
@@ -180,5 +179,10 @@ public class PlayerMovements : MonoBehaviour
         _body.velocity = _movement * _speed * Vector2.right + _body.velocity * Vector2.up;
         _movement = Vector2.zero;
         _speed = Vector2.zero;
+    }
+
+    public void MoveToSpawn()
+    {
+        _body.position = _spawnPoint.position;
     }
 }
