@@ -76,8 +76,8 @@ public class PlayerMovements : MonoBehaviour
     
     private void _updateState()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(_body.position, Vector2.down, 1.25f);
-        Debug.DrawRay(_body.position, Vector2.down * 1.25f, Color.red);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(_body.position, Vector2.down, 1.30f);
+        Debug.DrawRay(_body.position, Vector2.down * 1.30f, Color.red);
 
         Debug.Log("State: " + _state);
         if (hits.Length > 0)
