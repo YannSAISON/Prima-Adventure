@@ -37,16 +37,19 @@ public class RoomSpawner : MonoBehaviour
             else if (openingDirection == 2)
             {
                 rand = UnityEngine.Random.Range(0, templates.topRooms.Length);
+                Debug.Log("Spawning something at " + transform.position + "\n");
                 Instantiate(templates.topRooms[rand], transform.position, Quaternion.identity);
             }
             else if (openingDirection == 3)
             {
                 rand = UnityEngine.Random.Range(0, templates.leftRooms.Length);
+                Debug.Log("Spawning something at " + transform.position + "\n");
                 Instantiate(templates.leftRooms[rand], transform.position, Quaternion.identity);
             }
             else if (openingDirection == 4)
             {
                 rand = UnityEngine.Random.Range(0, templates.rightRooms.Length);
+                Debug.Log("Spawning something at " + transform.position + "\n");
                 Instantiate(templates.rightRooms[rand], transform.position, Quaternion.identity);
             }
             spawned = true;
