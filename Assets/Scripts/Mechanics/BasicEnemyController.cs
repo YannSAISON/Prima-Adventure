@@ -54,11 +54,10 @@ namespace Mechanics
         private void OnTriggerEnter2D(Collider2D other)
         {
             PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
-            PlayerStateManager playerStateManager = other.gameObject.GetComponent<PlayerStateManager>();
             if (playerMovement != null)
             {
                 if (playerMovement.isDashing)
-                    Hit(playerStateManager.damages);
+                    Hit(_playerState.damages);
                 else
                     _playerState.Hit(_damages);
             }
