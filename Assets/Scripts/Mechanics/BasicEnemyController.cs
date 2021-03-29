@@ -33,6 +33,7 @@ namespace Mechanics
 
         private PlayerStateManager _playerState;
         private int _damages;
+        SpriteRenderer spriteRenderer;
 
         private SmoothCamera _camera;
         
@@ -49,6 +50,8 @@ namespace Mechanics
                 throw new Exception("Player not found.");
             _playerState = player.GetComponent<PlayerStateManager>();
             _camera = GameObject.FindObjectOfType<SmoothCamera>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -102,6 +105,7 @@ namespace Mechanics
             if (_state == EnemyState.Hiking)
             {
                 _handleHikingState();
+                spriteRenderer.flipX = !_toDest;
             } else if (_state == EnemyState.Hunting)
             {
                 _handleHuntingState();
@@ -134,6 +138,7 @@ namespace Mechanics
                     return;
                 this.transform.position = Vector2.MoveTowards(position,
                     _destination, Time.deltaTime * _chasingSpeed);
+                spriteRenderer.flipX = false;
             }
             else
             {
@@ -141,6 +146,7 @@ namespace Mechanics
                 Vector2 diff = _originalPosition - (Vector2)position;
                 if (diff.magnitude < .5)
                     return;
+                spriteRenderer.flipX = true;
                 this.transform.position = Vector2.MoveTowards(this.transform.position,
                     _originalPosition, Time.deltaTime * _chasingSpeed);
             }
@@ -150,7 +156,9 @@ namespace Mechanics
         {
             Vector2 diff = dest - (Vector2)this.transform.position;
             if (diff.magnitude < .5)
+            {
                 _toDest = !_toDest;
+            }
         }
     }
 }
