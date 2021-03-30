@@ -38,6 +38,7 @@ namespace Mechanics
         private SmoothCamera _camera;
 
         private ParticleSystem _particle;
+        private AudioSource _audio;
         
         // Start is called before the first frame update
         void Start()
@@ -54,7 +55,7 @@ namespace Mechanics
             _camera = GameObject.FindObjectOfType<SmoothCamera>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             _particle = transform.GetComponentInChildren<ParticleSystem>();
-            _particle.Stop();
+            _audio = transform.GetComponentInChildren<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -89,9 +90,10 @@ namespace Mechanics
             //TODO Trigger particles
             _particle.Play();
             //TODO Trigger sound
+            _audio.Play();
             //// TODO Wiggle camera
             // _camera.WiggleCamera(SmoothCamera.WiggleForce.Low);
-            //TODO Wait to destroy object
+            ////TODO Wait to destroy object
         }
 
         public void OnPlayerEnterArea()
