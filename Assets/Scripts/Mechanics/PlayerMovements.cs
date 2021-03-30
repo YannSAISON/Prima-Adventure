@@ -42,6 +42,8 @@ public class PlayerMovements : MonoBehaviour
     internal Animator animator;
     private Transform _spawnPoint;
 
+    public bool isEnabled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,11 +56,14 @@ public class PlayerMovements : MonoBehaviour
         _body.position = _spawnPoint.position;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        isEnabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isEnabled)
+            return;
         if (!isDashing)
         {
             _updateState();

@@ -9,6 +9,8 @@ TagManager:
   - Trap
   - SpawnPoint
   - PlayerSpawnPoint
+  - FxTemporaire
+  - Enemy
   layers:
   - Default
   - TransparentFX

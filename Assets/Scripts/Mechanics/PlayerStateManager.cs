@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mechanics;
 using Platformer.Mechanics;
 using UnityEngine;
 
@@ -36,6 +37,7 @@ public class PlayerStateManager : MonoBehaviour
         _isEnabled = true;
         _particle = gameObject.GetComponentInChildren<ParticleSystem>();
         _audio = gameObject.GetComponent<AudioSource>();
+        _resetEnemies();
         //TODO Reset enemies.
     }
 
@@ -81,6 +83,7 @@ public class PlayerStateManager : MonoBehaviour
         gameObject.GetComponent<Renderer>().enabled = false;
         _particle.Play();
         _audio.Play();
+        _playerMovements.isEnabled = false;
         //TODO Trigger audio
         //TODO Trigger particles.
         //TODO Wait for particles to stop.
@@ -91,7 +94,20 @@ public class PlayerStateManager : MonoBehaviour
         _currentHealth = health;
         _swag = swagMax;
         _isEnabled = true;
+        _playerMovements.isEnabled = false;
         //TODO Reset enemies.
+        _resetEnemies();
         yield return 0;
+    }
+
+    private void _resetEnemies()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject obj in objects)
+        {
+            BasicEnemyController controller = obj.GetComponentInChildren<BasicEnemyController>();
+            if (controller != null)
+                controller.Enable();
+        }
     }
 }

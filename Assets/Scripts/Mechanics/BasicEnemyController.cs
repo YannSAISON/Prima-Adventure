@@ -17,7 +17,8 @@ namespace Mechanics
             Hunting,
         }
 
-        public int health;
+        public int maxHealth;
+        private int _health;
         public int swagBack = 20;
 
         private float _speed;
@@ -46,6 +47,7 @@ namespace Mechanics
             gameObject.GetComponentInParent<EnemyAreaController>()
                 .Init(out _originalPosition, out _destination, out _speed, out _chasingSpeed, out _damages);
             _toDest = true;
+            _health = maxHealth;
             _state = EnemyState.Hiking;
             GameObject player = GameObject.Find("_Player");
             _player = player.GetComponent<Transform>();
@@ -74,16 +76,17 @@ namespace Mechanics
 
         public void Hit(int damages)
         {
-            health -= damages;
-            if (health <= 0)
+            _health -= damages;
+            if (_health <= 0)
             {
-                health = 0;
+                _health = 0;
                 _destroy();
             }
         }
 
         private void _destroy()
         {
+            Debug.Log("Destroying enemy.");
             _playerState.Killed(swagBack);
             //TODO Hide object
             gameObject.GetComponent<Renderer>().enabled = false;
@@ -168,6 +171,13 @@ namespace Mechanics
             {
                 _toDest = !_toDest;
             }
+        }
+
+        public void Enable()
+        {
+            Debug.Log("Reset enemy.");
+            _health = maxHealth;
+            gameObject.GetComponent<Renderer>().enabled = true;
         }
     }
 }

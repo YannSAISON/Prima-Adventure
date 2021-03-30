@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 5104162628477312283}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c9a4473d134004eb4518d30c5af422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  maxHealth: 100
   swagBack: 20
 --- !u!82 &2551708664795276217
 AudioSource:
