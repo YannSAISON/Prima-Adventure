@@ -62,6 +62,7 @@ public class PlayerStateManager : MonoBehaviour
             _camera.WiggleCamera(SmoothCamera.WiggleForce.High);
             _playerMovements.MoveToSpawn();
             _currentHealth = health;
+            _swag = swagMax;
             //TODO Reset enemies.
         }
     }

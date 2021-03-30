@@ -28,6 +28,11 @@ public class RoomSpawner : MonoBehaviour
 
     void Spawn()
     {
+        if (templates.nbRooms == 0)
+        {
+            Instantiate(templates.BossRooms[openingDirection - 1], transform.position, Quaternion.identity);
+            spawned = true;
+        }
         if (spawned == false)
         {
             switch (openingDirection)
@@ -64,6 +69,7 @@ public class RoomSpawner : MonoBehaviour
                     break;
             }
             spawned = true;
+            templates.nbRooms--;
         }
     }
 
@@ -73,7 +79,7 @@ public class RoomSpawner : MonoBehaviour
         {
             if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
-                Instantiate(templates.BossRooms, transform.position, Quaternion.identity);
+                Instantiate(templates.Boss, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
             spawned = true;

@@ -280,21 +280,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa15f5e7514010b49a23c92e078da73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KRooms: []
+  KRooms:
+  - {fileID: 3946251576967909288, guid: 1e6678525e549f2478f6d287860b6627, type: 3}
+  - {fileID: 7125409207395231437, guid: 08dbfb96013dbe1439fbb76e6f12b774, type: 3}
+  - {fileID: 2874877690429910360, guid: b65b6468eac598e4b87ee65b1ffa26ae, type: 3}
   LRooms:
   - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
-  - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
-  - {fileID: 4589906505499756216, guid: e6f2a445d1eb91b4fb0fadde2184ddf1, type: 3}
-  MRooms: []
-  QRooms: []
+  - {fileID: 4669520769811767586, guid: afacac878ef54a84a8306c8a30204df3, type: 3}
+  - {fileID: 1097525344279898873, guid: 06992a9f4ed0f334193a3ebc1fea2fc8, type: 3}
+  - {fileID: 8453775801211072279, guid: 069812f5fcc90944b9cb66b2fdcb9ed5, type: 3}
+  - {fileID: 5025738709929651973, guid: 7e83f2db7b6f0464a8f30a6889166b28, type: 3}
+  MRooms:
+  - {fileID: 297796700550783173, guid: 58661ffb06124d34fbcc5d7a3963a4e3, type: 3}
+  - {fileID: 891820361201763494, guid: 09cfff01cbd2c004caef80b572990caa, type: 3}
+  - {fileID: 5301494831344537204, guid: 53067f33e9000de4290ea9f5917419dc, type: 3}
+  - {fileID: 2027970878812045133, guid: a7c166b0c6cd758459263a8669cb24e9, type: 3}
+  - {fileID: 8580249616288692023, guid: d2b3bb707fdae714da44428e08d7e571, type: 3}
+  QRooms:
+  - {fileID: 3946251576967909288, guid: 1e6678525e549f2478f6d287860b6627, type: 3}
+  - {fileID: 2027970878812045133, guid: a7c166b0c6cd758459263a8669cb24e9, type: 3}
+  - {fileID: 5025738709929651973, guid: 7e83f2db7b6f0464a8f30a6889166b28, type: 3}
   RRooms:
   - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
-  SRooms: []
-  BossRooms: {fileID: 4589906505499756216, guid: e6f2a445d1eb91b4fb0fadde2184ddf1,
-    type: 3}
+  - {fileID: 1097525344279898873, guid: 06992a9f4ed0f334193a3ebc1fea2fc8, type: 3}
+  - {fileID: 4669520769811767586, guid: afacac878ef54a84a8306c8a30204df3, type: 3}
+  - {fileID: 8580249616288692023, guid: d2b3bb707fdae714da44428e08d7e571, type: 3}
+  - {fileID: 2874877690429910360, guid: b65b6468eac598e4b87ee65b1ffa26ae, type: 3}
+  SRooms:
+  - {fileID: 297796700550783173, guid: 58661ffb06124d34fbcc5d7a3963a4e3, type: 3}
+  - {fileID: 891820361201763494, guid: 09cfff01cbd2c004caef80b572990caa, type: 3}
+  - {fileID: 5301494831344537204, guid: 53067f33e9000de4290ea9f5917419dc, type: 3}
+  - {fileID: 8453775801211072279, guid: 069812f5fcc90944b9cb66b2fdcb9ed5, type: 3}
+  - {fileID: 7125409207395231437, guid: 08dbfb96013dbe1439fbb76e6f12b774, type: 3}
+  BossRooms:
+  - {fileID: 2392612496971369498, guid: ec3750d79a38b95408dcda7a28e99443, type: 3}
+  - {fileID: 4589906505499756216, guid: e6f2a445d1eb91b4fb0fadde2184ddf1, type: 3}
+  - {fileID: 1167514861809067506, guid: b7826e38ceb515d4186e714543bd2905, type: 3}
   rooms: []
   waitTime: 2
-  boss: {fileID: 1119411462}
+  nbRooms: 10
+  Boss: {fileID: 0}
 --- !u!4 &515314481
 Transform:
   m_ObjectHideFlags: 0
