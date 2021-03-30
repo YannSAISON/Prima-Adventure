@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
 {
-    public GameObject[] bottomRooms;
-    public GameObject[] topRooms;
-    public GameObject[] rightRooms;
-    public GameObject[] leftRooms;
+    public GameObject[] KRooms;
+    public GameObject[] LRooms;
+    public GameObject[] MRooms;
+    public GameObject[] QRooms;
+    public GameObject[] RRooms;
+    public GameObject[] SRooms;
 
-    public GameObject closedRoom;
+    public GameObject BossRooms;
 
     public List<GameObject> rooms;
 

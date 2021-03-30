@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a2a9f98e603dd41817628eeb52808c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openingDirection: 4
+  openingDirection: 5
   waitTime: 4
 --- !u!61 &1574963520526809419
 BoxCollider2D:

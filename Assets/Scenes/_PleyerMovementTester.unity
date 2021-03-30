@@ -280,15 +280,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa15f5e7514010b49a23c92e078da73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottomRooms: []
-  topRooms: []
-  rightRooms:
-  - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
-  leftRooms:
+  KRooms: []
+  LRooms:
   - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
   - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
   - {fileID: 4589906505499756216, guid: e6f2a445d1eb91b4fb0fadde2184ddf1, type: 3}
-  closedRoom: {fileID: 4589906505499756216, guid: e6f2a445d1eb91b4fb0fadde2184ddf1,
+  MRooms: []
+  QRooms: []
+  RRooms:
+  - {fileID: 8332932503087517221, guid: 0dc8656062fabb545a9b84ce39193a21, type: 3}
+  SRooms: []
+  BossRooms: {fileID: 4589906505499756216, guid: e6f2a445d1eb91b4fb0fadde2184ddf1,
     type: 3}
   rooms: []
   waitTime: 2
@@ -784,6 +786,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570718523054312174, guid: 6659fb81e16cf2a46b1cf9f3d0df9084,
+        type: 3}
+      propertyPath: openingDirection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7770373459804110208, guid: 6659fb81e16cf2a46b1cf9f3d0df9084,
         type: 3}

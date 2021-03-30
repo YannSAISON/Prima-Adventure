@@ -6,10 +6,12 @@ using System;
 public class RoomSpawner : MonoBehaviour
 {
     public int openingDirection;
-    // 1 = need B door
-    // 2 = need T door
-    // 3 = need L door
-    // 4 = nees right door
+    // 1 = need K door
+    // 2 = need L door
+    // 3 = need M door
+    // 4 = need Q door
+    // 5 = need R door
+    // 6 = need S door
 
     private RoomTemplates templates;
     private int rand;
@@ -28,29 +30,38 @@ public class RoomSpawner : MonoBehaviour
     {
         if (spawned == false)
         {
-            if (openingDirection == 1)
+            switch (openingDirection)
             {
-                rand = UnityEngine.Random.Range(0, templates.bottomRooms.Length);
-                Debug.Log("Spawning something at " + transform.position + "\n");
-                Instantiate(templates.bottomRooms[rand], transform.position, Quaternion.identity);
-            }
-            else if (openingDirection == 2)
-            {
-                rand = UnityEngine.Random.Range(0, templates.topRooms.Length);
-                Debug.Log("Spawning something at " + transform.position + "\n");
-                Instantiate(templates.topRooms[rand], transform.position, Quaternion.identity);
-            }
-            else if (openingDirection == 3)
-            {
-                rand = UnityEngine.Random.Range(0, templates.leftRooms.Length);
-                Debug.Log("Spawning something at " + transform.position + "\n");
-                Instantiate(templates.leftRooms[rand], transform.position, Quaternion.identity);
-            }
-            else if (openingDirection == 4)
-            {
-                rand = UnityEngine.Random.Range(0, templates.rightRooms.Length);
-                Debug.Log("Spawning something at " + transform.position + "\n");
-                Instantiate(templates.rightRooms[rand], transform.position, Quaternion.identity);
+                case 1:
+                    rand = UnityEngine.Random.Range(0, templates.KRooms.Length);
+                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    Instantiate(templates.KRooms[rand], transform.position, Quaternion.identity);
+                    break;
+                case 2:
+                    rand = UnityEngine.Random.Range(0, templates.LRooms.Length);
+                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    Instantiate(templates.LRooms[rand], transform.position, Quaternion.identity);
+                    break;
+                case 3:
+                    rand = UnityEngine.Random.Range(0, templates.MRooms.Length);
+                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    Instantiate(templates.MRooms[rand], transform.position, Quaternion.identity);
+                    break;
+                case 4:
+                    rand = UnityEngine.Random.Range(0, templates.QRooms.Length);
+                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    Instantiate(templates.QRooms[rand], transform.position, Quaternion.identity);
+                    break;
+                case 5:
+                    rand = UnityEngine.Random.Range(0, templates.RRooms.Length);
+                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    Instantiate(templates.RRooms[rand], transform.position, Quaternion.identity);
+                    break;
+                case 6:
+                    rand = UnityEngine.Random.Range(0, templates.SRooms.Length);
+                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    Instantiate(templates.SRooms[rand], transform.position, Quaternion.identity);
+                    break;
             }
             spawned = true;
         }
@@ -62,7 +73,7 @@ public class RoomSpawner : MonoBehaviour
         {
             if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
-                Instantiate(templates.closedRoom, transform.position, Quaternion.identity);
+                Instantiate(templates.BossRooms, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
             spawned = true;

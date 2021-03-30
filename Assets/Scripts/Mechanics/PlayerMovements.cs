@@ -96,11 +96,13 @@ public class PlayerMovements : MonoBehaviour
                 {
                     _state = State.Grounded;
                     //Debug.Log("Velocity X = " + Mathf.Abs(_body.velocity.x) / horizontalSpeed);
+                    animator.SetBool("grounded", true);
                     animator.SetFloat("velocityX", Mathf.Abs(_body.velocity.x) / horizontalSpeed);
                     return;
                 }
             }
         }
+        animator.SetBool("grounded", false);
         if (_body.velocity.y > 0)
             _state = State.Ascending;
         else if (_body.velocity.y < 0)
@@ -123,11 +125,13 @@ public class PlayerMovements : MonoBehaviour
             _body.AddForce(_dashVector * _speed);
             _movement = _dashVector;
             _speed = Vector2.one * dashSpeed * (Time.deltaTime * (_dashDuration - (_dashSumDeltaT + Time.deltaTime)));
+            animator.SetBool("grounded", false);
             isDashing = false;
         }
         else
         {
             _movement = _dashVector;
+            animator.SetBool("grounded", true);
             _speed = Vector2.one * dashSpeed;
         }
         
