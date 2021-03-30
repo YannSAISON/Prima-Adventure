@@ -36,6 +36,8 @@ namespace Mechanics
         SpriteRenderer spriteRenderer;
 
         private SmoothCamera _camera;
+
+        private ParticleSystem _particle;
         
         // Start is called before the first frame update
         void Start()
@@ -51,11 +53,14 @@ namespace Mechanics
             _playerState = player.GetComponent<PlayerStateManager>();
             _camera = GameObject.FindObjectOfType<SmoothCamera>();
             spriteRenderer = GetComponent<SpriteRenderer>();
-
+            _particle = transform.GetComponentInChildren<ParticleSystem>();
+            _particle.Stop();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (gameObject.GetComponent<Renderer>().enabled == false)
+                return;
             PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
             if (playerMovement != null)
             {
@@ -82,9 +87,10 @@ namespace Mechanics
             //TODO Hide object
             gameObject.GetComponent<Renderer>().enabled = false;
             //TODO Trigger particles
+            _particle.Play();
             //TODO Trigger sound
-            //TODO Wiggle camera
-            _camera.WiggleCamera(SmoothCamera.WiggleForce.Low);
+            //// TODO Wiggle camera
+            // _camera.WiggleCamera(SmoothCamera.WiggleForce.Low);
             //TODO Wait to destroy object
         }
 
@@ -110,6 +116,7 @@ namespace Mechanics
             {
                 _handleHuntingState();
             }
+            
         }
 
         private void _handleHikingState()

@@ -7,7 +7,7 @@ public class TrapController : MonoBehaviour
     public int _damages;
 
     private PlayerStateManager _playerState;
-    
+
     // Start is called before the first frame update
     void Start()
     {
