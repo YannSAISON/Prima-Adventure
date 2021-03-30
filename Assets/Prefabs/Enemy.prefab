@@ -70,7 +70,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8699128870709813555}
   - component: {fileID: 8699128870709813554}
-  - component: {fileID: 5104162628477312283}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -108,26 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   chasingSpeed: 2
-  damages: 0
---- !u!95 &5104162628477312283
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8699128870709813552}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 428ba6adfe91fae4a85a3e40792641f6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  damages: 100
 --- !u!1 &8699128870934373629
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +120,7 @@ GameObject:
   - component: {fileID: 8699128870934373631}
   - component: {fileID: 8699128870934373630}
   - component: {fileID: 8699128870934373617}
+  - component: {fileID: 2030949682784840598}
   m_Layer: 0
   m_Name: EnemyUI
   m_TagString: Untagged
@@ -258,8 +239,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c9a4473d134004eb4518d30c5af422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  swagBack: 20
+  health: 50
+  swagBack: 60
+--- !u!95 &2030949682784840598
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8699128870934373629}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 428ba6adfe91fae4a85a3e40792641f6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8699128871750582192
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19900000, guid: 3156817f64ec68948ad6bb26569b9ef5, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3156817f64ec68948ad6bb26569b9ef5, type: 3}
