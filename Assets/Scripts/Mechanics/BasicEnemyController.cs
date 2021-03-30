@@ -17,7 +17,8 @@ namespace Mechanics
             Hunting,
         }
 
-        public int health;
+        public int maxHealth;
+        private int _health;
         public int swagBack = 20;
 
         private float _speed;
@@ -38,6 +39,7 @@ namespace Mechanics
         private SmoothCamera _camera;
 
         private ParticleSystem _particle;
+        private AudioSource _audio;
         
         // Start is called before the first frame update
         void Start()
@@ -45,6 +47,7 @@ namespace Mechanics
             gameObject.GetComponentInParent<EnemyAreaController>()
                 .Init(out _originalPosition, out _destination, out _speed, out _chasingSpeed, out _damages);
             _toDest = true;
+            _health = maxHealth;
             _state = EnemyState.Hiking;
             GameObject player = GameObject.Find("_Player");
             _player = player.GetComponent<Transform>();
@@ -54,7 +57,7 @@ namespace Mechanics
             _camera = GameObject.FindObjectOfType<SmoothCamera>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             _particle = transform.GetComponentInChildren<ParticleSystem>();
-            _particle.Stop();
+            _audio = transform.GetComponentInChildren<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -73,25 +76,27 @@ namespace Mechanics
 
         public void Hit(int damages)
         {
-            health -= damages;
-            if (health <= 0)
+            _health -= damages;
+            if (_health <= 0)
             {
-                health = 0;
+                _health = 0;
                 _destroy();
             }
         }
 
         private void _destroy()
         {
+            Debug.Log("Destroying enemy.");
             _playerState.Killed(swagBack);
             //TODO Hide object
             gameObject.GetComponent<Renderer>().enabled = false;
             //TODO Trigger particles
             _particle.Play();
             //TODO Trigger sound
+            _audio.Play();
             //// TODO Wiggle camera
             // _camera.WiggleCamera(SmoothCamera.WiggleForce.Low);
-            //TODO Wait to destroy object
+            ////TODO Wait to destroy object
         }
 
         public void OnPlayerEnterArea()
@@ -166,6 +171,13 @@ namespace Mechanics
             {
                 _toDest = !_toDest;
             }
+        }
+
+        public void Enable()
+        {
+            Debug.Log("Reset enemy.");
+            _health = maxHealth;
+            gameObject.GetComponent<Renderer>().enabled = true;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mechanics;
 using Platformer.Mechanics;
 using UnityEngine;
 
@@ -20,6 +21,12 @@ public class PlayerStateManager : MonoBehaviour
     private SmoothCamera _camera;
 
     private PlayerMovements _playerMovements;
+
+    private bool _isEnabled;
+
+    private ParticleSystem _particle;
+
+    private AudioSource _audio;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +34,18 @@ public class PlayerStateManager : MonoBehaviour
         _playerMovements = gameObject.GetComponent<PlayerMovements>();
         _swag = swagMax;
         _currentHealth = health;
+        _isEnabled = true;
+        _particle = gameObject.GetComponentInChildren<ParticleSystem>();
+        _audio = gameObject.GetComponent<AudioSource>();
+        _resetEnemies();
         //TODO Reset enemies.
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_isEnabled)
+            return;
         if (!_playerMovements.isDashing && Input.GetButtonDown("Fire1") && _swag >= dashCost)
         {
             _playerMovements.StartDash();
@@ -60,10 +73,41 @@ public class PlayerStateManager : MonoBehaviour
         if (_currentHealth < 0)
         {
             _camera.WiggleCamera(SmoothCamera.WiggleForce.High);
-            _playerMovements.MoveToSpawn();
-            _currentHealth = health;
-            _swag = swagMax;
-            //TODO Reset enemies.
+            StartCoroutine("PlayerDeathAnimation");
+        }
+    }
+
+    public IEnumerator PlayerDeathAnimation()
+    {
+        _isEnabled = false;
+        gameObject.GetComponent<Renderer>().enabled = false;
+        _particle.Play();
+        _audio.Play();
+        _playerMovements.isEnabled = false;
+        //TODO Trigger audio
+        //TODO Trigger particles.
+        //TODO Wait for particles to stop.
+        while (_particle.isPlaying) 
+            yield return new WaitForSeconds(0.1f);
+        _playerMovements.MoveToSpawn();
+        gameObject.GetComponent<Renderer>().enabled = true;
+        _currentHealth = health;
+        _swag = swagMax;
+        _isEnabled = true;
+        _playerMovements.isEnabled = false;
+        //TODO Reset enemies.
+        _resetEnemies();
+        yield return 0;
+    }
+
+    private void _resetEnemies()
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject obj in objects)
+        {
+            BasicEnemyController controller = obj.GetComponentInChildren<BasicEnemyController>();
+            if (controller != null)
+                controller.Enable();
         }
     }
 }
