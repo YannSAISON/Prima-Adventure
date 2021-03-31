@@ -164,10 +164,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751231623935892310}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 915d3bfa20ae5844f94a6c33f08f96d0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -310,6 +310,7 @@ MonoBehaviour:
   maxDashRange: 5
   minDashRange: 2
   jumpDelay: 0.1
+  isEnabled: 0
 --- !u!114 &1750164328742076259
 MonoBehaviour:
   m_ObjectHideFlags: 0

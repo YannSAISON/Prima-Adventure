@@ -59,7 +59,7 @@ namespace Mechanics
             _camera = GameObject.FindObjectOfType<SmoothCamera>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             _particle = transform.GetComponentInChildren<ParticleSystem>();
-            _audio = transform.GetComponentInChildren<AudioSource>();
+            _audio = transform.GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
