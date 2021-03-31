@@ -17,7 +17,7 @@ public class TrapController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
-        if (playerMovement != null)
+        if (playerMovement != null && playerMovement.isEnabled)
         {
             _playerState.Hit(_damages);
         }

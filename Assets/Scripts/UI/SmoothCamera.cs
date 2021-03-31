@@ -73,12 +73,13 @@ public class SmoothCamera : MonoBehaviour
 
     public void WiggleCamera(WiggleForce force)
     {
+        Debug.Log("Starting wiggle of force " + force);
         if (force == WiggleForce.Low)
             _wiggle(0.05f, 0.0005f);
         if (force == WiggleForce.Medium)
             _wiggle(0.1f, 0.001f);
         if (force == WiggleForce.High)
-            _wiggle(0.2f, 0.002f);
+            _wiggle(0.2f, 0.004f);
     }
 
     private void _wiggle(float force, float decay)

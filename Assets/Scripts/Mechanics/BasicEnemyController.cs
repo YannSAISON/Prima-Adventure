@@ -65,7 +65,7 @@ namespace Mechanics
             if (gameObject.GetComponent<Renderer>().enabled == false)
                 return;
             PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
-            if (playerMovement != null)
+            if (playerMovement != null && playerMovement.isEnabled)
             {
                 if (playerMovement.isDashing)
                     Hit(_playerState.damages);
@@ -86,7 +86,7 @@ namespace Mechanics
 
         private void _destroy()
         {
-            Debug.Log("Destroying enemy.");
+            // Debug.Log("Destroying enemy.");
             _playerState.Killed(swagBack);
             //TODO Hide object
             gameObject.GetComponent<Renderer>().enabled = false;
@@ -175,7 +175,7 @@ namespace Mechanics
 
         public void Enable()
         {
-            Debug.Log("Reset enemy.");
+            // Debug.Log("Reset enemy.");
             _health = maxHealth;
             gameObject.GetComponent<Renderer>().enabled = true;
         }

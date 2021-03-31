@@ -39,32 +39,32 @@ public class RoomSpawner : MonoBehaviour
             {
                 case 1:
                     rand = UnityEngine.Random.Range(0, templates.KRooms.Length);
-                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    // Debug.Log("Spawning something at " + transform.position + "\n");
                     Instantiate(templates.KRooms[rand], transform.position, Quaternion.identity);
                     break;
                 case 2:
                     rand = UnityEngine.Random.Range(0, templates.LRooms.Length);
-                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    // Debug.Log("Spawning something at " + transform.position + "\n");
                     Instantiate(templates.LRooms[rand], transform.position, Quaternion.identity);
                     break;
                 case 3:
                     rand = UnityEngine.Random.Range(0, templates.MRooms.Length);
-                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    // Debug.Log("Spawning something at " + transform.position + "\n");
                     Instantiate(templates.MRooms[rand], transform.position, Quaternion.identity);
                     break;
                 case 4:
                     rand = UnityEngine.Random.Range(0, templates.QRooms.Length);
-                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    // Debug.Log("Spawning something at " + transform.position + "\n");
                     Instantiate(templates.QRooms[rand], transform.position, Quaternion.identity);
                     break;
                 case 5:
                     rand = UnityEngine.Random.Range(0, templates.RRooms.Length);
-                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    // Debug.Log("Spawning something at " + transform.position + "\n");
                     Instantiate(templates.RRooms[rand], transform.position, Quaternion.identity);
                     break;
                 case 6:
                     rand = UnityEngine.Random.Range(0, templates.SRooms.Length);
-                    Debug.Log("Spawning something at " + transform.position + "\n");
+                    // Debug.Log("Spawning something at " + transform.position + "\n");
                     Instantiate(templates.SRooms[rand], transform.position, Quaternion.identity);
                     break;
             }

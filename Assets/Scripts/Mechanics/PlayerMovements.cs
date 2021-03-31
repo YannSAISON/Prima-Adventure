@@ -88,7 +88,7 @@ public class PlayerMovements : MonoBehaviour
         RaycastHit2D[] hits = Physics2D.RaycastAll(_body.position, Vector2.down, 1.30f);
         Debug.DrawRay(_body.position, Vector2.down * 1.30f, Color.red);
 
-        Debug.Log("State: " + _state);
+        // Debug.Log("State: " + _state);
         if (_body.velocity.x > 0.01f)
             spriteRenderer.flipX = false;
         else if (_body.velocity.x < -0.01f)
@@ -188,7 +188,7 @@ public class PlayerMovements : MonoBehaviour
 
         if (_state == State.Grounded && _jumpDeltaTime > jumpDelay && Input.GetAxisRaw("Vertical") > 0)
         {
-            Debug.Log("Jumping.");
+            // Debug.Log("Jumping.");
             _body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             _jumpDeltaTime = 0;
         }
@@ -205,5 +205,20 @@ public class PlayerMovements : MonoBehaviour
     public void MoveToSpawn()
     {
         _body.position = _spawnPoint.position;
+    }
+
+    public void Disable()
+    {
+        isEnabled = false;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        _body.velocity = Vector2.zero;
+        _movement = Vector2.zero;
+        _speed = Vector2.zero;
+    }
+    
+    public void Enable()
+    {
+        isEnabled = true;
+        gameObject.GetComponent<Rigidbody2D>().gravityScale = 2;
     }
 }
