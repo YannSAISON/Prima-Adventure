@@ -35,6 +35,8 @@ namespace Mechanics
         private PlayerStateManager _playerState;
         private int _damages;
         SpriteRenderer spriteRenderer;
+        public float timeBetweenHits;
+        private float _timeRemaining;
 
         private SmoothCamera _camera;
 
@@ -62,7 +64,7 @@ namespace Mechanics
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (gameObject.GetComponent<Renderer>().enabled == false)
+            if (gameObject.GetComponent<Renderer>().enabled == false || !other.CompareTag("Player"))
                 return;
             PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
             if (playerMovement != null && playerMovement.isEnabled)
@@ -70,7 +72,25 @@ namespace Mechanics
                 if (playerMovement.isDashing)
                     Hit(_playerState.damages);
                 else
+                {
+                    _timeRemaining = timeBetweenHits;
                     _playerState.Hit(_damages);
+                }
+            }
+        }
+        
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
+            if (!other.CompareTag("Player") || playerMovement == null || !playerMovement.isEnabled)
+                return;
+            _timeRemaining -= Time.deltaTime;
+            Debug.Log("Still inside.");
+            if (_timeRemaining <= 0)
+            {
+                Debug.Log("New hit.");
+                _timeRemaining = timeBetweenHits;
+                _playerState.Hit(_damages);
             }
         }
 
@@ -121,7 +141,6 @@ namespace Mechanics
             {
                 _handleHuntingState();
             }
-            
         }
 
         private void _handleHikingState()
