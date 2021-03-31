@@ -72,6 +72,11 @@ public class PlayerStateManager : MonoBehaviour
         return _swag;
     }
     
+    public int getSwag()
+    {
+        return (_swag);
+    }
+
     public void Hit(int damages)
     {
         if (!_isEnabled)
