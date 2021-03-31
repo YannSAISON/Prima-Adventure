@@ -35,6 +35,8 @@ namespace Mechanics
         private PlayerStateManager _playerState;
         private int _damages;
         SpriteRenderer spriteRenderer;
+        public float timeBetweenHits;
+        private float _timeRemaining;
 
         private SmoothCamera _camera;
 
@@ -62,15 +64,33 @@ namespace Mechanics
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (gameObject.GetComponent<Renderer>().enabled == false)
+            if (gameObject.GetComponent<Renderer>().enabled == false || !other.CompareTag("Player"))
                 return;
             PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
-            if (playerMovement != null)
+            if (playerMovement != null && playerMovement.isEnabled)
             {
                 if (playerMovement.isDashing)
                     Hit(_playerState.damages);
                 else
+                {
+                    _timeRemaining = timeBetweenHits;
                     _playerState.Hit(_damages);
+                }
+            }
+        }
+        
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
+            if (!other.CompareTag("Player") || playerMovement == null || !playerMovement.isEnabled)
+                return;
+            _timeRemaining -= Time.deltaTime;
+            Debug.Log("Still inside.");
+            if (_timeRemaining <= 0)
+            {
+                Debug.Log("New hit.");
+                _timeRemaining = timeBetweenHits;
+                _playerState.Hit(_damages);
             }
         }
 
@@ -86,7 +106,7 @@ namespace Mechanics
 
         private void _destroy()
         {
-            Debug.Log("Destroying enemy.");
+            // Debug.Log("Destroying enemy.");
             _playerState.Killed(swagBack);
             //TODO Hide object
             gameObject.GetComponent<Renderer>().enabled = false;
@@ -121,7 +141,6 @@ namespace Mechanics
             {
                 _handleHuntingState();
             }
-            
         }
 
         private void _handleHikingState()
@@ -175,7 +194,7 @@ namespace Mechanics
 
         public void Enable()
         {
-            Debug.Log("Reset enemy.");
+            // Debug.Log("Reset enemy.");
             _health = maxHealth;
             gameObject.GetComponent<Renderer>().enabled = true;
         }

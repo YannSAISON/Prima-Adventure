@@ -74,6 +74,8 @@ public class PlayerStateManager : MonoBehaviour
 
     public void Hit(int damages)
     {
+        if (!_isEnabled)
+            return;
         _currentHealth -= damages;
         if (_currentHealth < 0)
         {
@@ -88,21 +90,18 @@ public class PlayerStateManager : MonoBehaviour
         gameObject.GetComponent<Renderer>().enabled = false;
         _particle.Play();
         _audio.Play();
-        _playerMovements.isEnabled = false;
-        //TODO Trigger audio
-        //TODO Trigger particles.
-        //TODO Wait for particles to stop.
+        // _playerMovements.isEnabled = false;
+        _playerMovements.Disable();
         while (_particle.isPlaying) 
             yield return new WaitForSeconds(0.1f);
         _playerMovements.MoveToSpawn();
         gameObject.GetComponent<Renderer>().enabled = true;
         _currentHealth = health;
         _swag = swagMax;
-        _isEnabled = true;
-        _playerMovements.isEnabled = false;
-        //TODO Reset enemies.
+        // _playerMovements.isEnabled = false;
+        _playerMovements.Enable();
         _resetEnemies();
-        yield return 0;
+        _isEnabled = true;
     }
 
     private void _resetEnemies()

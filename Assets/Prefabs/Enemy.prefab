@@ -239,8 +239,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c9a4473d134004eb4518d30c5af422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  maxHealth: 0
   swagBack: 60
+  timeBetweenHits: 0.25
 --- !u!95 &2030949682784840598
 Animator:
   serializedVersion: 3

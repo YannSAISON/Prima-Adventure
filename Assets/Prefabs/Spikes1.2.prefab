@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3064609388674811589}
   - component: {fileID: 6758753634014052732}
   m_Layer: 0
-  m_Name: Spikes1 1
+  m_Name: Spikes1.2
   m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,4 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3005e2b251a69749b05fef232c7e525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damages: 100
+  damages: 50
+  timeBetweenHits: 0.25

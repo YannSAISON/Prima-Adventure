@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TrapController : MonoBehaviour
 {
-    public int _damages;
+    public int damages;
+    public float timeBetweenHits;
+    private float _timeRemaining;
 
     private PlayerStateManager _playerState;
 
@@ -13,13 +16,29 @@ public class TrapController : MonoBehaviour
     {
         _playerState = GameObject.Find("_Player").GetComponent<PlayerStateManager>();
     }
-    
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerStay2D(Collider2D other)
     {
         PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
-        if (playerMovement != null)
+        if (!other.CompareTag("Player") || playerMovement == null || !playerMovement.isEnabled)
+            return;
+        _timeRemaining -= Time.deltaTime;
+        if (_timeRemaining <= 0)
         {
-            _playerState.Hit(_damages);
+            _timeRemaining = timeBetweenHits;
+            _playerState.Hit(damages);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+        PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
+        if (playerMovement != null && playerMovement.isEnabled)
+        {
+            _timeRemaining = timeBetweenHits;
+            _playerState.Hit(damages);
         }
     }
 }
