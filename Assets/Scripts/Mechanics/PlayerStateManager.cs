@@ -67,6 +67,11 @@ public class PlayerStateManager : MonoBehaviour
         _swag = _swag > swagMax ? swagMax : _swag;
     }
     
+    public int getSwag()
+    {
+        return (_swag);
+    }
+
     public void Hit(int damages)
     {
         _currentHealth -= damages;

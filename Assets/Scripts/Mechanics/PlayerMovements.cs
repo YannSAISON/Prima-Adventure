@@ -127,6 +127,7 @@ public class PlayerMovements : MonoBehaviour
         Debug.DrawLine(transform.position, _dashDestination, Color.green);
         if (_dashSumDeltaT + Time.deltaTime > _dashDuration)
         {
+            Debug.Log("Done");
             _body.AddForce(_dashVector * _speed);
             _movement = _dashVector;
             _speed = Vector2.one * dashSpeed * (Time.deltaTime * (_dashDuration - (_dashSumDeltaT + Time.deltaTime)));
@@ -135,6 +136,7 @@ public class PlayerMovements : MonoBehaviour
         }
         else
         {
+            Debug.Log("Dashing");
             _movement = _dashVector;
             animator.SetBool("grounded", true);
             _speed = Vector2.one * dashSpeed;
@@ -144,35 +146,47 @@ public class PlayerMovements : MonoBehaviour
         _dashSumDeltaT += Time.deltaTime;
     }
 
+    public static Vector2 ClampMagnitude(Vector2 v, float max, float min)
+    {
+        double sm = v.sqrMagnitude;
+        if (sm > (double)max * (double)max) return v.normalized * max;
+        else if (sm < (double)min * (double)min) return v.normalized * min;
+        return v;
+    }
+
     private void _defineDashDestination()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 diff = mousePosition - _body.position;
-        float distanceSq = Mathf.Sqrt(Mathf.Pow(
+        float distanceSq = diff.magnitude; /*Mathf.Sqrt(Mathf.Pow(
                                           diff.x, 2) +
                                       Mathf.Pow(
-                                          diff.y, 2));
+                                          diff.y, 2));*/
         float range = 0;
         _dashVector = diff / distanceSq;
         if (distanceSq == 0)
         {
+            Debug.Log("AH");
             isDashing = false;
             return;
         }
         else if (minDashRange <= distanceSq && distanceSq <= maxDashRange)
         {
+            Debug.Log("Classic Dash");
             _dashDestination = mousePosition;
             range = distanceSq;
         }
         else
         {
+            Debug.Log("distanceSQ = [" + distanceSq + "]");
             float multiplier = (distanceSq > maxDashRange ? maxDashRange : minDashRange);
-            _dashDestination = _body.position + _dashVector * multiplier;
+            _dashDestination = _body.position + ClampMagnitude(diff, maxDashRange, minDashRange);/*_body.position + _dashVector * multiplier*/;
             range = multiplier;
         }
 
-        _dashDuration = range / dashSpeed;
         _dashSumDeltaT = 0;
+        _dashDuration = range / dashSpeed;
+            Debug.Log("diff = [" + diff.magnitude + "]");
     }
 
     private float _getSign(float nb)
