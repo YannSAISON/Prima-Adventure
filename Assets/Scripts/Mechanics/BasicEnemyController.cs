@@ -81,6 +81,8 @@ namespace Mechanics
         
         private void OnTriggerStay2D(Collider2D other)
         {
+            if (gameObject.GetComponent<Renderer>().enabled == false)
+                return;
             PlayerMovements playerMovement = other.gameObject.GetComponent<PlayerMovements>();
             if (!other.CompareTag("Player") || playerMovement == null || !playerMovement.isEnabled)
                 return;
